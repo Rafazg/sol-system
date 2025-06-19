@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Coleta = $Result.DefaultSelection<Prisma.$ColetaPayload>
 /**
+ * Model ColetaAgendada
+ * 
+ */
+export type ColetaAgendada = $Result.DefaultSelection<Prisma.$ColetaAgendadaPayload>
+/**
  * Model Cooperativa
  * 
  */
@@ -158,6 +163,16 @@ export class PrismaClient<
     * ```
     */
   get coleta(): Prisma.ColetaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.coletaAgendada`: Exposes CRUD operations for the **ColetaAgendada** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ColetaAgendadas
+    * const coletaAgendadas = await prisma.coletaAgendada.findMany()
+    * ```
+    */
+  get coletaAgendada(): Prisma.ColetaAgendadaDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.cooperativa`: Exposes CRUD operations for the **Cooperativa** model.
@@ -609,6 +624,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Coleta: 'Coleta',
+    ColetaAgendada: 'ColetaAgendada',
     Cooperativa: 'Cooperativa'
   };
 
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "coleta" | "cooperativa"
+      modelProps: "coleta" | "coletaAgendada" | "cooperativa"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -703,6 +719,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ColetaCountArgs<ExtArgs>
             result: $Utils.Optional<ColetaCountAggregateOutputType> | number
+          }
+        }
+      }
+      ColetaAgendada: {
+        payload: Prisma.$ColetaAgendadaPayload<ExtArgs>
+        fields: Prisma.ColetaAgendadaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ColetaAgendadaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ColetaAgendadaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>
+          }
+          findFirst: {
+            args: Prisma.ColetaAgendadaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ColetaAgendadaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>
+          }
+          findMany: {
+            args: Prisma.ColetaAgendadaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>[]
+          }
+          create: {
+            args: Prisma.ColetaAgendadaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>
+          }
+          createMany: {
+            args: Prisma.ColetaAgendadaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ColetaAgendadaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>[]
+          }
+          delete: {
+            args: Prisma.ColetaAgendadaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>
+          }
+          update: {
+            args: Prisma.ColetaAgendadaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>
+          }
+          deleteMany: {
+            args: Prisma.ColetaAgendadaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ColetaAgendadaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ColetaAgendadaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>[]
+          }
+          upsert: {
+            args: Prisma.ColetaAgendadaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColetaAgendadaPayload>
+          }
+          aggregate: {
+            args: Prisma.ColetaAgendadaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateColetaAgendada>
+          }
+          groupBy: {
+            args: Prisma.ColetaAgendadaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ColetaAgendadaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ColetaAgendadaCountArgs<ExtArgs>
+            result: $Utils.Optional<ColetaAgendadaCountAggregateOutputType> | number
           }
         }
       }
@@ -865,6 +955,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     coleta?: ColetaOmit
+    coletaAgendada?: ColetaAgendadaOmit
     cooperativa?: CooperativaOmit
   }
 
@@ -2012,6 +2103,1048 @@ export namespace Prisma {
      * Omit specific fields from the Coleta
      */
     omit?: ColetaOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ColetaAgendada
+   */
+
+  export type AggregateColetaAgendada = {
+    _count: ColetaAgendadaCountAggregateOutputType | null
+    _avg: ColetaAgendadaAvgAggregateOutputType | null
+    _sum: ColetaAgendadaSumAggregateOutputType | null
+    _min: ColetaAgendadaMinAggregateOutputType | null
+    _max: ColetaAgendadaMaxAggregateOutputType | null
+  }
+
+  export type ColetaAgendadaAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ColetaAgendadaSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ColetaAgendadaMinAggregateOutputType = {
+    id: number | null
+    pontoColeta: string | null
+    endereco: string | null
+    dataHora: Date | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type ColetaAgendadaMaxAggregateOutputType = {
+    id: number | null
+    pontoColeta: string | null
+    endereco: string | null
+    dataHora: Date | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type ColetaAgendadaCountAggregateOutputType = {
+    id: number
+    pontoColeta: number
+    endereco: number
+    dataHora: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ColetaAgendadaAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ColetaAgendadaSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ColetaAgendadaMinAggregateInputType = {
+    id?: true
+    pontoColeta?: true
+    endereco?: true
+    dataHora?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type ColetaAgendadaMaxAggregateInputType = {
+    id?: true
+    pontoColeta?: true
+    endereco?: true
+    dataHora?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type ColetaAgendadaCountAggregateInputType = {
+    id?: true
+    pontoColeta?: true
+    endereco?: true
+    dataHora?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ColetaAgendadaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ColetaAgendada to aggregate.
+     */
+    where?: ColetaAgendadaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ColetaAgendadas to fetch.
+     */
+    orderBy?: ColetaAgendadaOrderByWithRelationInput | ColetaAgendadaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ColetaAgendadaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ColetaAgendadas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ColetaAgendadas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ColetaAgendadas
+    **/
+    _count?: true | ColetaAgendadaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ColetaAgendadaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ColetaAgendadaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ColetaAgendadaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ColetaAgendadaMaxAggregateInputType
+  }
+
+  export type GetColetaAgendadaAggregateType<T extends ColetaAgendadaAggregateArgs> = {
+        [P in keyof T & keyof AggregateColetaAgendada]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateColetaAgendada[P]>
+      : GetScalarType<T[P], AggregateColetaAgendada[P]>
+  }
+
+
+
+
+  export type ColetaAgendadaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ColetaAgendadaWhereInput
+    orderBy?: ColetaAgendadaOrderByWithAggregationInput | ColetaAgendadaOrderByWithAggregationInput[]
+    by: ColetaAgendadaScalarFieldEnum[] | ColetaAgendadaScalarFieldEnum
+    having?: ColetaAgendadaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ColetaAgendadaCountAggregateInputType | true
+    _avg?: ColetaAgendadaAvgAggregateInputType
+    _sum?: ColetaAgendadaSumAggregateInputType
+    _min?: ColetaAgendadaMinAggregateInputType
+    _max?: ColetaAgendadaMaxAggregateInputType
+  }
+
+  export type ColetaAgendadaGroupByOutputType = {
+    id: number
+    pontoColeta: string
+    endereco: string
+    dataHora: Date
+    status: string
+    createdAt: Date
+    _count: ColetaAgendadaCountAggregateOutputType | null
+    _avg: ColetaAgendadaAvgAggregateOutputType | null
+    _sum: ColetaAgendadaSumAggregateOutputType | null
+    _min: ColetaAgendadaMinAggregateOutputType | null
+    _max: ColetaAgendadaMaxAggregateOutputType | null
+  }
+
+  type GetColetaAgendadaGroupByPayload<T extends ColetaAgendadaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ColetaAgendadaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ColetaAgendadaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ColetaAgendadaGroupByOutputType[P]>
+            : GetScalarType<T[P], ColetaAgendadaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ColetaAgendadaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pontoColeta?: boolean
+    endereco?: boolean
+    dataHora?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["coletaAgendada"]>
+
+  export type ColetaAgendadaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pontoColeta?: boolean
+    endereco?: boolean
+    dataHora?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["coletaAgendada"]>
+
+  export type ColetaAgendadaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pontoColeta?: boolean
+    endereco?: boolean
+    dataHora?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["coletaAgendada"]>
+
+  export type ColetaAgendadaSelectScalar = {
+    id?: boolean
+    pontoColeta?: boolean
+    endereco?: boolean
+    dataHora?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type ColetaAgendadaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "pontoColeta" | "endereco" | "dataHora" | "status" | "createdAt", ExtArgs["result"]["coletaAgendada"]>
+
+  export type $ColetaAgendadaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ColetaAgendada"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      pontoColeta: string
+      endereco: string
+      dataHora: Date
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["coletaAgendada"]>
+    composites: {}
+  }
+
+  type ColetaAgendadaGetPayload<S extends boolean | null | undefined | ColetaAgendadaDefaultArgs> = $Result.GetResult<Prisma.$ColetaAgendadaPayload, S>
+
+  type ColetaAgendadaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ColetaAgendadaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ColetaAgendadaCountAggregateInputType | true
+    }
+
+  export interface ColetaAgendadaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ColetaAgendada'], meta: { name: 'ColetaAgendada' } }
+    /**
+     * Find zero or one ColetaAgendada that matches the filter.
+     * @param {ColetaAgendadaFindUniqueArgs} args - Arguments to find a ColetaAgendada
+     * @example
+     * // Get one ColetaAgendada
+     * const coletaAgendada = await prisma.coletaAgendada.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ColetaAgendadaFindUniqueArgs>(args: SelectSubset<T, ColetaAgendadaFindUniqueArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ColetaAgendada that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ColetaAgendadaFindUniqueOrThrowArgs} args - Arguments to find a ColetaAgendada
+     * @example
+     * // Get one ColetaAgendada
+     * const coletaAgendada = await prisma.coletaAgendada.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ColetaAgendadaFindUniqueOrThrowArgs>(args: SelectSubset<T, ColetaAgendadaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ColetaAgendada that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColetaAgendadaFindFirstArgs} args - Arguments to find a ColetaAgendada
+     * @example
+     * // Get one ColetaAgendada
+     * const coletaAgendada = await prisma.coletaAgendada.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ColetaAgendadaFindFirstArgs>(args?: SelectSubset<T, ColetaAgendadaFindFirstArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ColetaAgendada that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColetaAgendadaFindFirstOrThrowArgs} args - Arguments to find a ColetaAgendada
+     * @example
+     * // Get one ColetaAgendada
+     * const coletaAgendada = await prisma.coletaAgendada.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ColetaAgendadaFindFirstOrThrowArgs>(args?: SelectSubset<T, ColetaAgendadaFindFirstOrThrowArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ColetaAgendadas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColetaAgendadaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ColetaAgendadas
+     * const coletaAgendadas = await prisma.coletaAgendada.findMany()
+     * 
+     * // Get first 10 ColetaAgendadas
+     * const coletaAgendadas = await prisma.coletaAgendada.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coletaAgendadaWithIdOnly = await prisma.coletaAgendada.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ColetaAgendadaFindManyArgs>(args?: SelectSubset<T, ColetaAgendadaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ColetaAgendada.
+     * @param {ColetaAgendadaCreateArgs} args - Arguments to create a ColetaAgendada.
+     * @example
+     * // Create one ColetaAgendada
+     * const ColetaAgendada = await prisma.coletaAgendada.create({
+     *   data: {
+     *     // ... data to create a ColetaAgendada
+     *   }
+     * })
+     * 
+     */
+    create<T extends ColetaAgendadaCreateArgs>(args: SelectSubset<T, ColetaAgendadaCreateArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ColetaAgendadas.
+     * @param {ColetaAgendadaCreateManyArgs} args - Arguments to create many ColetaAgendadas.
+     * @example
+     * // Create many ColetaAgendadas
+     * const coletaAgendada = await prisma.coletaAgendada.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ColetaAgendadaCreateManyArgs>(args?: SelectSubset<T, ColetaAgendadaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ColetaAgendadas and returns the data saved in the database.
+     * @param {ColetaAgendadaCreateManyAndReturnArgs} args - Arguments to create many ColetaAgendadas.
+     * @example
+     * // Create many ColetaAgendadas
+     * const coletaAgendada = await prisma.coletaAgendada.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ColetaAgendadas and only return the `id`
+     * const coletaAgendadaWithIdOnly = await prisma.coletaAgendada.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ColetaAgendadaCreateManyAndReturnArgs>(args?: SelectSubset<T, ColetaAgendadaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ColetaAgendada.
+     * @param {ColetaAgendadaDeleteArgs} args - Arguments to delete one ColetaAgendada.
+     * @example
+     * // Delete one ColetaAgendada
+     * const ColetaAgendada = await prisma.coletaAgendada.delete({
+     *   where: {
+     *     // ... filter to delete one ColetaAgendada
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ColetaAgendadaDeleteArgs>(args: SelectSubset<T, ColetaAgendadaDeleteArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ColetaAgendada.
+     * @param {ColetaAgendadaUpdateArgs} args - Arguments to update one ColetaAgendada.
+     * @example
+     * // Update one ColetaAgendada
+     * const coletaAgendada = await prisma.coletaAgendada.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ColetaAgendadaUpdateArgs>(args: SelectSubset<T, ColetaAgendadaUpdateArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ColetaAgendadas.
+     * @param {ColetaAgendadaDeleteManyArgs} args - Arguments to filter ColetaAgendadas to delete.
+     * @example
+     * // Delete a few ColetaAgendadas
+     * const { count } = await prisma.coletaAgendada.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ColetaAgendadaDeleteManyArgs>(args?: SelectSubset<T, ColetaAgendadaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ColetaAgendadas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColetaAgendadaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ColetaAgendadas
+     * const coletaAgendada = await prisma.coletaAgendada.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ColetaAgendadaUpdateManyArgs>(args: SelectSubset<T, ColetaAgendadaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ColetaAgendadas and returns the data updated in the database.
+     * @param {ColetaAgendadaUpdateManyAndReturnArgs} args - Arguments to update many ColetaAgendadas.
+     * @example
+     * // Update many ColetaAgendadas
+     * const coletaAgendada = await prisma.coletaAgendada.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ColetaAgendadas and only return the `id`
+     * const coletaAgendadaWithIdOnly = await prisma.coletaAgendada.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ColetaAgendadaUpdateManyAndReturnArgs>(args: SelectSubset<T, ColetaAgendadaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ColetaAgendada.
+     * @param {ColetaAgendadaUpsertArgs} args - Arguments to update or create a ColetaAgendada.
+     * @example
+     * // Update or create a ColetaAgendada
+     * const coletaAgendada = await prisma.coletaAgendada.upsert({
+     *   create: {
+     *     // ... data to create a ColetaAgendada
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ColetaAgendada we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ColetaAgendadaUpsertArgs>(args: SelectSubset<T, ColetaAgendadaUpsertArgs<ExtArgs>>): Prisma__ColetaAgendadaClient<$Result.GetResult<Prisma.$ColetaAgendadaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ColetaAgendadas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColetaAgendadaCountArgs} args - Arguments to filter ColetaAgendadas to count.
+     * @example
+     * // Count the number of ColetaAgendadas
+     * const count = await prisma.coletaAgendada.count({
+     *   where: {
+     *     // ... the filter for the ColetaAgendadas we want to count
+     *   }
+     * })
+    **/
+    count<T extends ColetaAgendadaCountArgs>(
+      args?: Subset<T, ColetaAgendadaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ColetaAgendadaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ColetaAgendada.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColetaAgendadaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ColetaAgendadaAggregateArgs>(args: Subset<T, ColetaAgendadaAggregateArgs>): Prisma.PrismaPromise<GetColetaAgendadaAggregateType<T>>
+
+    /**
+     * Group by ColetaAgendada.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColetaAgendadaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ColetaAgendadaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ColetaAgendadaGroupByArgs['orderBy'] }
+        : { orderBy?: ColetaAgendadaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ColetaAgendadaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetColetaAgendadaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ColetaAgendada model
+   */
+  readonly fields: ColetaAgendadaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ColetaAgendada.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ColetaAgendadaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ColetaAgendada model
+   */
+  interface ColetaAgendadaFieldRefs {
+    readonly id: FieldRef<"ColetaAgendada", 'Int'>
+    readonly pontoColeta: FieldRef<"ColetaAgendada", 'String'>
+    readonly endereco: FieldRef<"ColetaAgendada", 'String'>
+    readonly dataHora: FieldRef<"ColetaAgendada", 'DateTime'>
+    readonly status: FieldRef<"ColetaAgendada", 'String'>
+    readonly createdAt: FieldRef<"ColetaAgendada", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ColetaAgendada findUnique
+   */
+  export type ColetaAgendadaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * Filter, which ColetaAgendada to fetch.
+     */
+    where: ColetaAgendadaWhereUniqueInput
+  }
+
+  /**
+   * ColetaAgendada findUniqueOrThrow
+   */
+  export type ColetaAgendadaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * Filter, which ColetaAgendada to fetch.
+     */
+    where: ColetaAgendadaWhereUniqueInput
+  }
+
+  /**
+   * ColetaAgendada findFirst
+   */
+  export type ColetaAgendadaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * Filter, which ColetaAgendada to fetch.
+     */
+    where?: ColetaAgendadaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ColetaAgendadas to fetch.
+     */
+    orderBy?: ColetaAgendadaOrderByWithRelationInput | ColetaAgendadaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ColetaAgendadas.
+     */
+    cursor?: ColetaAgendadaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ColetaAgendadas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ColetaAgendadas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ColetaAgendadas.
+     */
+    distinct?: ColetaAgendadaScalarFieldEnum | ColetaAgendadaScalarFieldEnum[]
+  }
+
+  /**
+   * ColetaAgendada findFirstOrThrow
+   */
+  export type ColetaAgendadaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * Filter, which ColetaAgendada to fetch.
+     */
+    where?: ColetaAgendadaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ColetaAgendadas to fetch.
+     */
+    orderBy?: ColetaAgendadaOrderByWithRelationInput | ColetaAgendadaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ColetaAgendadas.
+     */
+    cursor?: ColetaAgendadaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ColetaAgendadas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ColetaAgendadas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ColetaAgendadas.
+     */
+    distinct?: ColetaAgendadaScalarFieldEnum | ColetaAgendadaScalarFieldEnum[]
+  }
+
+  /**
+   * ColetaAgendada findMany
+   */
+  export type ColetaAgendadaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * Filter, which ColetaAgendadas to fetch.
+     */
+    where?: ColetaAgendadaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ColetaAgendadas to fetch.
+     */
+    orderBy?: ColetaAgendadaOrderByWithRelationInput | ColetaAgendadaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ColetaAgendadas.
+     */
+    cursor?: ColetaAgendadaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ColetaAgendadas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ColetaAgendadas.
+     */
+    skip?: number
+    distinct?: ColetaAgendadaScalarFieldEnum | ColetaAgendadaScalarFieldEnum[]
+  }
+
+  /**
+   * ColetaAgendada create
+   */
+  export type ColetaAgendadaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ColetaAgendada.
+     */
+    data: XOR<ColetaAgendadaCreateInput, ColetaAgendadaUncheckedCreateInput>
+  }
+
+  /**
+   * ColetaAgendada createMany
+   */
+  export type ColetaAgendadaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ColetaAgendadas.
+     */
+    data: ColetaAgendadaCreateManyInput | ColetaAgendadaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ColetaAgendada createManyAndReturn
+   */
+  export type ColetaAgendadaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * The data used to create many ColetaAgendadas.
+     */
+    data: ColetaAgendadaCreateManyInput | ColetaAgendadaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ColetaAgendada update
+   */
+  export type ColetaAgendadaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ColetaAgendada.
+     */
+    data: XOR<ColetaAgendadaUpdateInput, ColetaAgendadaUncheckedUpdateInput>
+    /**
+     * Choose, which ColetaAgendada to update.
+     */
+    where: ColetaAgendadaWhereUniqueInput
+  }
+
+  /**
+   * ColetaAgendada updateMany
+   */
+  export type ColetaAgendadaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ColetaAgendadas.
+     */
+    data: XOR<ColetaAgendadaUpdateManyMutationInput, ColetaAgendadaUncheckedUpdateManyInput>
+    /**
+     * Filter which ColetaAgendadas to update
+     */
+    where?: ColetaAgendadaWhereInput
+    /**
+     * Limit how many ColetaAgendadas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ColetaAgendada updateManyAndReturn
+   */
+  export type ColetaAgendadaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * The data used to update ColetaAgendadas.
+     */
+    data: XOR<ColetaAgendadaUpdateManyMutationInput, ColetaAgendadaUncheckedUpdateManyInput>
+    /**
+     * Filter which ColetaAgendadas to update
+     */
+    where?: ColetaAgendadaWhereInput
+    /**
+     * Limit how many ColetaAgendadas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ColetaAgendada upsert
+   */
+  export type ColetaAgendadaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ColetaAgendada to update in case it exists.
+     */
+    where: ColetaAgendadaWhereUniqueInput
+    /**
+     * In case the ColetaAgendada found by the `where` argument doesn't exist, create a new ColetaAgendada with this data.
+     */
+    create: XOR<ColetaAgendadaCreateInput, ColetaAgendadaUncheckedCreateInput>
+    /**
+     * In case the ColetaAgendada was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ColetaAgendadaUpdateInput, ColetaAgendadaUncheckedUpdateInput>
+  }
+
+  /**
+   * ColetaAgendada delete
+   */
+  export type ColetaAgendadaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
+    /**
+     * Filter which ColetaAgendada to delete.
+     */
+    where: ColetaAgendadaWhereUniqueInput
+  }
+
+  /**
+   * ColetaAgendada deleteMany
+   */
+  export type ColetaAgendadaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ColetaAgendadas to delete
+     */
+    where?: ColetaAgendadaWhereInput
+    /**
+     * Limit how many ColetaAgendadas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ColetaAgendada without action
+   */
+  export type ColetaAgendadaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColetaAgendada
+     */
+    select?: ColetaAgendadaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ColetaAgendada
+     */
+    omit?: ColetaAgendadaOmit<ExtArgs> | null
   }
 
 
@@ -3270,6 +4403,18 @@ export namespace Prisma {
   export type ColetaScalarFieldEnum = (typeof ColetaScalarFieldEnum)[keyof typeof ColetaScalarFieldEnum]
 
 
+  export const ColetaAgendadaScalarFieldEnum: {
+    id: 'id',
+    pontoColeta: 'pontoColeta',
+    endereco: 'endereco',
+    dataHora: 'dataHora',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type ColetaAgendadaScalarFieldEnum = (typeof ColetaAgendadaScalarFieldEnum)[keyof typeof ColetaAgendadaScalarFieldEnum]
+
+
   export const CooperativaScalarFieldEnum: {
     id: 'id',
     nome: 'nome',
@@ -3479,6 +4624,65 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Coleta"> | Date | string
   }
 
+  export type ColetaAgendadaWhereInput = {
+    AND?: ColetaAgendadaWhereInput | ColetaAgendadaWhereInput[]
+    OR?: ColetaAgendadaWhereInput[]
+    NOT?: ColetaAgendadaWhereInput | ColetaAgendadaWhereInput[]
+    id?: IntFilter<"ColetaAgendada"> | number
+    pontoColeta?: StringFilter<"ColetaAgendada"> | string
+    endereco?: StringFilter<"ColetaAgendada"> | string
+    dataHora?: DateTimeFilter<"ColetaAgendada"> | Date | string
+    status?: StringFilter<"ColetaAgendada"> | string
+    createdAt?: DateTimeFilter<"ColetaAgendada"> | Date | string
+  }
+
+  export type ColetaAgendadaOrderByWithRelationInput = {
+    id?: SortOrder
+    pontoColeta?: SortOrder
+    endereco?: SortOrder
+    dataHora?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ColetaAgendadaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ColetaAgendadaWhereInput | ColetaAgendadaWhereInput[]
+    OR?: ColetaAgendadaWhereInput[]
+    NOT?: ColetaAgendadaWhereInput | ColetaAgendadaWhereInput[]
+    pontoColeta?: StringFilter<"ColetaAgendada"> | string
+    endereco?: StringFilter<"ColetaAgendada"> | string
+    dataHora?: DateTimeFilter<"ColetaAgendada"> | Date | string
+    status?: StringFilter<"ColetaAgendada"> | string
+    createdAt?: DateTimeFilter<"ColetaAgendada"> | Date | string
+  }, "id">
+
+  export type ColetaAgendadaOrderByWithAggregationInput = {
+    id?: SortOrder
+    pontoColeta?: SortOrder
+    endereco?: SortOrder
+    dataHora?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: ColetaAgendadaCountOrderByAggregateInput
+    _avg?: ColetaAgendadaAvgOrderByAggregateInput
+    _max?: ColetaAgendadaMaxOrderByAggregateInput
+    _min?: ColetaAgendadaMinOrderByAggregateInput
+    _sum?: ColetaAgendadaSumOrderByAggregateInput
+  }
+
+  export type ColetaAgendadaScalarWhereWithAggregatesInput = {
+    AND?: ColetaAgendadaScalarWhereWithAggregatesInput | ColetaAgendadaScalarWhereWithAggregatesInput[]
+    OR?: ColetaAgendadaScalarWhereWithAggregatesInput[]
+    NOT?: ColetaAgendadaScalarWhereWithAggregatesInput | ColetaAgendadaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ColetaAgendada"> | number
+    pontoColeta?: StringWithAggregatesFilter<"ColetaAgendada"> | string
+    endereco?: StringWithAggregatesFilter<"ColetaAgendada"> | string
+    dataHora?: DateTimeWithAggregatesFilter<"ColetaAgendada"> | Date | string
+    status?: StringWithAggregatesFilter<"ColetaAgendada"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ColetaAgendada"> | Date | string
+  }
+
   export type CooperativaWhereInput = {
     AND?: CooperativaWhereInput | CooperativaWhereInput[]
     OR?: CooperativaWhereInput[]
@@ -3672,6 +4876,66 @@ export namespace Prisma {
     unidade?: StringFieldUpdateOperationsInput | string
     observacoes?: NullableStringFieldUpdateOperationsInput | string | null
     localizacao?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ColetaAgendadaCreateInput = {
+    pontoColeta: string
+    endereco: string
+    dataHora: Date | string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type ColetaAgendadaUncheckedCreateInput = {
+    id?: number
+    pontoColeta: string
+    endereco: string
+    dataHora: Date | string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type ColetaAgendadaUpdateInput = {
+    pontoColeta?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ColetaAgendadaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    pontoColeta?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ColetaAgendadaCreateManyInput = {
+    id?: number
+    pontoColeta: string
+    endereco: string
+    dataHora: Date | string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type ColetaAgendadaUpdateManyMutationInput = {
+    pontoColeta?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ColetaAgendadaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    pontoColeta?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4068,6 +5332,41 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type ColetaAgendadaCountOrderByAggregateInput = {
+    id?: SortOrder
+    pontoColeta?: SortOrder
+    endereco?: SortOrder
+    dataHora?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ColetaAgendadaAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ColetaAgendadaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    pontoColeta?: SortOrder
+    endereco?: SortOrder
+    dataHora?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ColetaAgendadaMinOrderByAggregateInput = {
+    id?: SortOrder
+    pontoColeta?: SortOrder
+    endereco?: SortOrder
+    dataHora?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ColetaAgendadaSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {

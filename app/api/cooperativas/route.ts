@@ -1,5 +1,3 @@
-import { Search } from 'lucide-react';
-import { Cooperativa } from './../../../prisma/src/generated/prisma-client/index.d';
 import { PrismaClient } from "../../../prisma/src/generated/prisma-client";
 import { NextResponse } from "next/server"
 

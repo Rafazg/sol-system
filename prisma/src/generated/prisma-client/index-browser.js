@@ -130,6 +130,15 @@ exports.Prisma.ColetaScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ColetaAgendadaScalarFieldEnum = {
+  id: 'id',
+  pontoColeta: 'pontoColeta',
+  endereco: 'endereco',
+  dataHora: 'dataHora',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.CooperativaScalarFieldEnum = {
   id: 'id',
   nome: 'nome',
@@ -182,6 +191,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Coleta: 'Coleta',
+  ColetaAgendada: 'ColetaAgendada',
   Cooperativa: 'Cooperativa'
 };
 
