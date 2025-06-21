@@ -1,18 +1,38 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Camera, MapPin, Weight, CheckCircle, ArrowLeft, Upload, Trash2 } from "lucide-react"
-import Link from "next/link"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import {
+  Camera,
+  MapPin,
+  Weight,
+  CheckCircle,
+  ArrowLeft,
+  Upload,
+  Trash2,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function RegistroColeta() {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(1);
   const [coletaData, setColetaData] = useState({
     pontoColeta: "",
     peso: "",
@@ -20,28 +40,43 @@ export default function RegistroColeta() {
     observacoes: "",
     fotos: [],
     localizacao: null,
-  })
+  });
 
   const pontosColeta = [
-    { id: 1, nome: "Supermercado Central", endereco: "Rua das Flores, 123", cnpj: "12.345.678/0001-90" },
-    { id: 2, nome: "Shopping Plaza", endereco: "Av. Principal, 456", cnpj: "98.765.432/0001-10" },
-    { id: 3, nome: "Mercado do Bairro", endereco: "Rua do Comércio, 789", cnpj: "11.222.333/0001-44" },
-  ]
+    {
+      id: 1,
+      nome: "Supermercado Central",
+      endereco: "Rua das Flores, 123",
+      cnpj: "12.345.678/0001-90",
+    },
+    {
+      id: 2,
+      nome: "Shopping Plaza",
+      endereco: "Av. Principal, 456",
+      cnpj: "98.765.432/0001-10",
+    },
+    {
+      id: 3,
+      nome: "Mercado do Bairro",
+      endereco: "Rua do Comércio, 789",
+      cnpj: "11.222.333/0001-44",
+    },
+  ];
 
   const handleFotoUpload = (event) => {
-    const files = Array.from(event.target.files)
+    const files = Array.from(event.target.files);
     setColetaData((prev) => ({
       ...prev,
       fotos: [...prev.fotos, ...files],
-    }))
-  }
+    }));
+  };
 
   const removeFoto = (index) => {
     setColetaData((prev) => ({
       ...prev,
       fotos: prev.fotos.filter((_, i) => i !== index),
-    }))
-  }
+    }));
+  };
 
   const obterLocalizacao = () => {
     if (navigator.geolocation) {
@@ -53,45 +88,67 @@ export default function RegistroColeta() {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             },
-          }))
+          }));
         },
         (error) => {
-          console.error("Erro ao obter localização:", error)
-        },
-      )
+          console.error("Erro ao obter localização:", error);
+        }
+      );
     }
-  }
+  };
 
-const finalizarColeta = async () => {
-  try {
-    const formData = new FormData()
-    coletaData.fotos.forEach((foto, i) => {
-      formData.append(`foto${i}`, foto)
-    })
+  const finalizarColeta = async () => {
+    try {
+      if (modo === "agendada") {
+        const response = await fetch("/api/agendarColeta", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            pontoColeta: coletaData.pontoColeta,
+            endereco: pontosColeta.find(p => p.id.toString() === coletaData.pontoColeta)?.endereco,
+            dataHora: dataHoraAgendada,
+          }),
+        })
 
-    const response = await fetch("/api/coleta", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        pontoColeta: coletaData.pontoColeta,
-        peso: coletaData.peso,
-        unidade: coletaData.unidade,
-        observacoes: coletaData.observacoes,
-        localizacao: coletaData.localizacao,
-      }),
-    })
+        if (response.ok) {
+          setStep(4);
+          return;
+        } else {
+          console.error("Erro ao agendar coleta")
+        }
+      }
 
-    if (response.ok) {
-      const json = await response.json()
-      console.log("Sucesso:", json)
-      setStep(4)
-    } else {
-      console.error("Erro ao salvar coleta")
+      const formData = new FormData();
+      coletaData.fotos.forEach((foto, i) => {
+        formData.append(`foto${i}`, foto);
+      });
+
+      const response = await fetch("/api/coleta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pontoColeta: coletaData.pontoColeta,
+          peso: coletaData.peso,
+          unidade: coletaData.unidade,
+          observacoes: coletaData.observacoes,
+          localizacao: coletaData.localizacao,
+        }),
+      });
+
+      if (response.ok) {
+        const json = await response.json();
+        console.log("Sucesso:", json);
+        setStep(4);
+      } else {
+        console.error("Erro ao salvar coleta");
+      }
+    } catch (error) {
+      console.error("Erro ao finalizar coleta:", error);
     }
-  } catch (error) {
-    console.error("Erro ao finalizar coleta:", error)
-  }
-}
+  };
+
+  const [dataHoraAgendada, setDataHoraAgendada] = useState("");
+  const [modo, setModo] = useState<"imediata" | "agendada">("imediata");
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -99,7 +156,10 @@ const finalizarColeta = async () => {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16">
-            <Link href="/" className="flex items-center text-gray-600 hover:text-gray-900">
+            <Link
+              href="/"
+              className="flex items-center text-gray-600 hover:text-gray-900"
+            >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Voltar ao Dashboard
             </Link>
@@ -115,13 +175,23 @@ const finalizarColeta = async () => {
               <div key={stepNumber} className="flex items-center">
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    step >= stepNumber ? "bg-green-600 text-white" : "bg-gray-300 text-gray-600"
+                    step >= stepNumber
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-300 text-gray-600"
                   }`}
                 >
-                  {step > stepNumber ? <CheckCircle className="h-5 w-5" /> : stepNumber}
+                  {step > stepNumber ? (
+                    <CheckCircle className="h-5 w-5" />
+                  ) : (
+                    stepNumber
+                  )}
                 </div>
                 {stepNumber < 3 && (
-                  <div className={`w-24 h-1 mx-4 ${step > stepNumber ? "bg-green-600" : "bg-gray-300"}`} />
+                  <div
+                    className={`w-24 h-1 mx-4 ${
+                      step > stepNumber ? "bg-green-600" : "bg-gray-300"
+                    }`}
+                  />
                 )}
               </div>
             ))}
@@ -141,7 +211,9 @@ const finalizarColeta = async () => {
                 <MapPin className="h-5 w-5 mr-2" />
                 Selecionar Ponto de Coleta
               </CardTitle>
-              <CardDescription>Escolha o ponto de coleta onde você está localizado</CardDescription>
+              <CardDescription>
+                Escolha o ponto de coleta onde você está localizado
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4">
@@ -153,13 +225,22 @@ const finalizarColeta = async () => {
                         ? "border-green-500 bg-green-50"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
-                    onClick={() => setColetaData((prev) => ({ ...prev, pontoColeta: ponto.id.toString() }))}
+                    onClick={() =>
+                      setColetaData((prev) => ({
+                        ...prev,
+                        pontoColeta: ponto.id.toString(),
+                      }))
+                    }
                   >
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-medium">{ponto.nome}</h3>
-                        <p className="text-sm text-gray-600">{ponto.endereco}</p>
-                        <p className="text-xs text-gray-500">CNPJ: {ponto.cnpj}</p>
+                        <p className="text-sm text-gray-600">
+                          {ponto.endereco}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          CNPJ: {ponto.cnpj}
+                        </p>
                       </div>
                       {coletaData.pontoColeta === ponto.id.toString() && (
                         <CheckCircle className="h-5 w-5 text-green-600" />
@@ -169,12 +250,45 @@ const finalizarColeta = async () => {
                 ))}
               </div>
 
+              <div>
+                <Label>Tipo de Coleta</Label>
+                <Select
+                  value={modo}
+                  onValueChange={(value) =>
+                    setModo(value as "imediata" | "agendada")
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Escolha o tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="imediata">Coletar Agora</SelectItem>
+                    <SelectItem value="agendada">Agendar Coleta</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {modo === "agendada" && (
+                <div>
+                  <Label htmlFor="dataHora">Data e Hora da Coleta</Label>
+                  <Input
+                    id="dataHora"
+                    type="datetime-local"
+                    value={dataHoraAgendada}
+                    onChange={(e) => setDataHoraAgendada(e.target.value)}
+                  />
+                </div>
+              )}
+
               <div className="flex justify-between pt-4">
                 <Button variant="outline" onClick={obterLocalizacao}>
                   <MapPin className="h-4 w-4 mr-2" />
                   Obter Localização Atual
                 </Button>
-                <Button onClick={() => setStep(2)} disabled={!coletaData.pontoColeta}>
+                <Button
+                  onClick={() => setStep(2)}
+                  disabled={!coletaData.pontoColeta}
+                >
                   Próximo
                 </Button>
               </div>
@@ -190,7 +304,9 @@ const finalizarColeta = async () => {
                 <Weight className="h-5 w-5 mr-2" />
                 Registrar Dados da Coleta
               </CardTitle>
-              <CardDescription>Insira o peso coletado e tire fotos do material</CardDescription>
+              <CardDescription>
+                Insira o peso coletado e tire fotos do material
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Peso */}
@@ -202,14 +318,21 @@ const finalizarColeta = async () => {
                     type="number"
                     placeholder="0.00"
                     value={coletaData.peso}
-                    onChange={(e) => setColetaData((prev) => ({ ...prev, peso: e.target.value }))}
+                    onChange={(e) =>
+                      setColetaData((prev) => ({
+                        ...prev,
+                        peso: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div>
                   <Label htmlFor="unidade">Unidade</Label>
                   <Select
                     value={coletaData.unidade}
-                    onValueChange={(value) => setColetaData((prev) => ({ ...prev, unidade: value }))}
+                    onValueChange={(value) =>
+                      setColetaData((prev) => ({ ...prev, unidade: value }))
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -228,7 +351,9 @@ const finalizarColeta = async () => {
                 <div className="mt-2">
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                     <Camera className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                    <p className="text-gray-600 mb-4">Tire fotos do material coletado</p>
+                    <p className="text-gray-600 mb-4">
+                      Tire fotos do material coletado
+                    </p>
                     <input
                       type="file"
                       multiple
@@ -251,7 +376,9 @@ const finalizarColeta = async () => {
                       {coletaData.fotos.map((foto, index) => (
                         <div key={index} className="relative">
                           <img
-                            src={URL.createObjectURL(foto) || "/placeholder.svg"}
+                            src={
+                              URL.createObjectURL(foto) || "/placeholder.svg"
+                            }
                             alt={`Foto ${index + 1}`}
                             className="w-full h-24 object-cover rounded-lg"
                           />
@@ -277,15 +404,53 @@ const finalizarColeta = async () => {
                   id="observacoes"
                   placeholder="Adicione observações sobre a coleta..."
                   value={coletaData.observacoes}
-                  onChange={(e) => setColetaData((prev) => ({ ...prev, observacoes: e.target.value }))}
+                  onChange={(e) =>
+                    setColetaData((prev) => ({
+                      ...prev,
+                      observacoes: e.target.value,
+                    }))
+                  }
                 />
               </div>
+
+              <div>
+                <Label>Tipo de Coleta</Label>
+                <Select
+                  value={modo}
+                  onValueChange={(value) =>
+                    setModo(value as "imediata" | "agendada")
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Escolha o tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="imediata">Coletar Agora</SelectItem>
+                    <SelectItem value="agendada">Agendar Coleta</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {modo === "agendada" && (
+                <div>
+                  <Label htmlFor="dataHora">Data e Hora da Coleta</Label>
+                  <Input
+                    id="dataHora"
+                    type="datetime-local"
+                    value={dataHoraAgendada}
+                    onChange={(e) => setDataHoraAgendada(e.target.value)}
+                  />
+                </div>
+              )}
 
               <div className="flex justify-between pt-4">
                 <Button variant="outline" onClick={() => setStep(1)}>
                   Voltar
                 </Button>
-                <Button onClick={() => setStep(3)} disabled={!coletaData.peso || coletaData.fotos.length === 0}>
+                <Button
+                  onClick={() => setStep(3)}
+                  disabled={!coletaData.peso || coletaData.fotos.length === 0}
+                >
                   Próximo
                 </Button>
               </div>
@@ -301,7 +466,9 @@ const finalizarColeta = async () => {
                 <CheckCircle className="h-5 w-5 mr-2" />
                 Confirmar Coleta
               </CardTitle>
-              <CardDescription>Revise os dados antes de finalizar o registro</CardDescription>
+              <CardDescription>
+                Revise os dados antes de finalizar o registro
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -310,10 +477,15 @@ const finalizarColeta = async () => {
                   <div className="space-y-2 text-sm">
                     <p>
                       <strong>Ponto:</strong>{" "}
-                      {pontosColeta.find((p) => p.id.toString() === coletaData.pontoColeta)?.nome}
+                      {
+                        pontosColeta.find(
+                          (p) => p.id.toString() === coletaData.pontoColeta
+                        )?.nome
+                      }
                     </p>
                     <p>
-                      <strong>Peso:</strong> {coletaData.peso} {coletaData.unidade}
+                      <strong>Peso:</strong> {coletaData.peso}{" "}
+                      {coletaData.unidade}
                     </p>
                     <p>
                       <strong>Data/Hora:</strong> {new Date().toLocaleString()}
@@ -329,10 +501,12 @@ const finalizarColeta = async () => {
                   {coletaData.localizacao ? (
                     <div className="text-sm">
                       <p>
-                        <strong>Latitude:</strong> {coletaData.localizacao.lat.toFixed(6)}
+                        <strong>Latitude:</strong>{" "}
+                        {coletaData.localizacao.lat.toFixed(6)}
                       </p>
                       <p>
-                        <strong>Longitude:</strong> {coletaData.localizacao.lng.toFixed(6)}
+                        <strong>Longitude:</strong>{" "}
+                        {coletaData.localizacao.lng.toFixed(6)}
                       </p>
                       <Badge variant="outline" className="mt-2">
                         <MapPin className="h-3 w-3 mr-1" />
@@ -340,7 +514,9 @@ const finalizarColeta = async () => {
                       </Badge>
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">Localização não obtida</p>
+                    <p className="text-sm text-gray-500">
+                      Localização não obtida
+                    </p>
                   )}
                 </div>
               </div>
@@ -348,7 +524,9 @@ const finalizarColeta = async () => {
               {coletaData.observacoes && (
                 <div>
                   <h3 className="font-medium mb-2">Observações</h3>
-                  <p className="text-sm text-gray-600">{coletaData.observacoes}</p>
+                  <p className="text-sm text-gray-600">
+                    {coletaData.observacoes}
+                  </p>
                 </div>
               )}
 
@@ -370,8 +548,12 @@ const finalizarColeta = async () => {
           <Card>
             <CardContent className="text-center py-12">
               <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Coleta Registrada com Sucesso!</h2>
-              <p className="text-gray-600 mb-6">Os dados foram salvos e estão disponíveis no histórico</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Coleta Registrada com Sucesso!
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Os dados foram salvos e estão disponíveis no histórico
+              </p>
               <div className="space-x-4">
                 <Button asChild>
                   <Link href="/">Voltar ao Dashboard</Link>
@@ -379,7 +561,7 @@ const finalizarColeta = async () => {
                 <Button
                   variant="outline"
                   onClick={() => {
-                    setStep(1)
+                    setStep(1);
                     setColetaData({
                       pontoColeta: "",
                       peso: "",
@@ -387,7 +569,7 @@ const finalizarColeta = async () => {
                       observacoes: "",
                       fotos: [],
                       localizacao: null,
-                    })
+                    });
                   }}
                 >
                   Nova Coleta
@@ -398,5 +580,5 @@ const finalizarColeta = async () => {
         )}
       </div>
     </div>
-  )
+  );
 }
